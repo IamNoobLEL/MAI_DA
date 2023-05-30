@@ -97,10 +97,10 @@ struct bst {
     void find(const char *key) {
         node_ptr elem = search(root, key);
         if (elem != nullptr) {
-            cout << "Result: " << elem->value << "\n";
+            cout << "OK: " << elem->value << "\n";
             return;
         }
-        cout << "Not Found\n";
+        cout << "NoSuchWord\n";
     }
 
     void insert(const char *key, uint64_t value) {
@@ -110,13 +110,13 @@ struct bst {
         split(root, key, left_tree, right_tree);
         elem = min_node(right_tree);
         if (elem != nullptr && strcmp(elem->key, key) == 0) {
-            cout << "Already Exists\n";
+            cout << "Exist\n";
             root = merge(left_tree, right_tree);
             return;
         }
         node_ptr new_node = new node(key, value);
         root = merge(merge(left_tree, new_node), right_tree);
-        cout << "Inserted\n";
+        cout << "OK\n";
     }
 
     void remove(char *key) {
@@ -130,12 +130,12 @@ struct bst {
         key[strlen(key) + 1] = '\0';
         split(right_tree_0, key, left_tree, right_tree);
         if (left_tree != nullptr) {
-            cout << "Removed\n";
+            cout << "OK\n";
             root = merge(left_tree_0, right_tree);
             delete left_tree;
             return;
         }
-        cout << "Not Found\n";
+        cout << "NoSuchWord\n";
         right_tree_0 = merge(left_tree, right_tree);
         root = merge(left_tree_0, right_tree_0);
     }
